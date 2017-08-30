@@ -99,10 +99,10 @@ $(document).ready(function(){
 			answers: $("#questions").serializeArray().reduce(function(p,c){
 				p[parseInt(c.name.replace(/[^0-9]+/g,''),10)] = parseInt(c.value,10);
 				return p;
-			}, Array(window.omatdata.questions.length).fill(null)),
+			}, Array(window.omatdata.questions.length)),
 			
 			// empty comparison array
-			comparison: Array(window.omatdata.parties.length).fill(0),
+			comparison: Array(window.omatdata.parties.length),
 			
 			/*
 			.reduce(function(p,c){
@@ -115,6 +115,19 @@ $(document).ready(function(){
 			detail: []
 			
 		};
+		
+		//set default value ( not with .fill(), because ie doesn't like it)
+		for(i=0; i<window.omatdata.questions.length; i++)
+		{
+			if(typeof result.answers[i] == "undefined")
+				result.answers[i] = null;
+		}
+		for(i=0; i<window.omatdata.parties.length; i++)
+		{
+			if(typeof result.comparison[i] == "undefined")
+				result.comparison[i] = 0;
+		}
+
 		
 		// calculate score
 		result.answers.forEach(function(v,i){
