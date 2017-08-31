@@ -99,10 +99,10 @@ $(document).ready(function(){
 			answers: $("#questions").serializeArray().reduce(function(p,c){
 				p[parseInt(c.name.replace(/[^0-9]+/g,''),10)] = parseInt(c.value,10);
 				return p;
-			}, Array(window.omatdata.questions.length).fill(null)),
+			}, Array.apply(null, Array(window.omatdata.questions.length)).map(function(){ return null }) ),
 			
 			// empty comparison array
-			comparison: Array(window.omatdata.parties.length).fill(0),
+			comparison: Array.apply(null, Array(window.omatdata.parties.length)).map(function(){ return 0 }),
 			
 			/*
 			.reduce(function(p,c){
